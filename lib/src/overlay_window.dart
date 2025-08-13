@@ -10,11 +10,11 @@ class FlutterOverlayWindowMagic {
 
   static final StreamController _controller = StreamController();
   static const MethodChannel _channel =
-      MethodChannel("x-slayer/overlay_channel");
+      MethodChannel("x-slayer/overlay_channel_magic");
   static const MethodChannel _overlayChannel =
-      MethodChannel("x-slayer/overlay");
+      MethodChannel("x-slayer/overlayMagic");
   static const BasicMessageChannel _overlayMessageChannel =
-      BasicMessageChannel("x-slayer/overlay_messenger", JSONMessageCodec());
+      BasicMessageChannel("x-slayer/overlay_messenger_magic", JSONMessageCodec());
 
   /// Open overLay content
   ///

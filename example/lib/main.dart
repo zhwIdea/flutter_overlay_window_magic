@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_overlay_window_example/home_page.dart';
-import 'package:flutter_overlay_window_example/overlays/true_caller_overlay.dart';
-
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
-}
+import 'home_page.dart';
+import 'overlays/true_caller_overlay.dart';
 
 @pragma("vm:entry-point")
 void overlayMainMagic() {
@@ -16,6 +11,11 @@ void overlayMainMagic() {
       home: TrueCallerOverlay(),
     ),
   );
+}
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
