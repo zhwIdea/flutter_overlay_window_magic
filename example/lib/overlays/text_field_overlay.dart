@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_overlay_window/flutter_overlay_window.dart';
+import 'package:flutter_overlay_window_magic/flutter_overlay_window_magic.dart';
 
 class TextFieldOverlay extends StatefulWidget {
   const TextFieldOverlay({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class _TextFieldOverlayState extends State<TextFieldOverlay> {
   @override
   void initState() {
     super.initState();
-    FlutterOverlayWindow.overlayListener.listen((event) {
+    FlutterOverlayWindowMagic.overlayListener.listen((event) {
       log("$event");
     });
   }
@@ -24,9 +24,9 @@ class _TextFieldOverlayState extends State<TextFieldOverlay> {
     return Focus(
       onFocusChange: (hasFocus) async {
         if (hasFocus) {
-          await FlutterOverlayWindow.updateFlag(OverlayFlag.focusPointer);
+          await FlutterOverlayWindowMagic.updateFlag(OverlayFlag.focusPointer);
         } else {
-          await FlutterOverlayWindow.updateFlag(OverlayFlag.defaultFlag);
+          await FlutterOverlayWindowMagic.updateFlag(OverlayFlag.defaultFlag);
         }
       },
       child: Scaffold(
@@ -40,7 +40,7 @@ class _TextFieldOverlayState extends State<TextFieldOverlay> {
                 const SizedBox(height: 50.0),
                 TextButton(
                   onPressed: () {
-                    FlutterOverlayWindow.closeOverlay();
+                    FlutterOverlayWindowMagic.closeOverlay();
                   },
                   child: const Text("Close Overlay"),
                 )

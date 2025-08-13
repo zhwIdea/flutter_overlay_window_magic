@@ -1,9 +1,8 @@
 import 'dart:developer';
 import 'dart:isolate';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_overlay_window/flutter_overlay_window.dart';
+import 'package:flutter_overlay_window_magic/flutter_overlay_window_magic.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -47,7 +46,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             TextButton(
               onPressed: () async {
-                final status = await FlutterOverlayWindow.isPermissionGranted();
+                final status = await FlutterOverlayWindowMagic.isPermissionGranted();
                 log("Is Permission Granted: $status");
               },
               child: const Text("Check Permission"),
@@ -56,7 +55,7 @@ class _HomePageState extends State<HomePage> {
             TextButton(
               onPressed: () async {
                 final bool? res =
-                    await FlutterOverlayWindow.requestPermission();
+                    await FlutterOverlayWindowMagic.requestPermission();
                 log("status: $res");
               },
               child: const Text("Request Permission"),
@@ -64,8 +63,8 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 10.0),
             TextButton(
               onPressed: () async {
-                if (await FlutterOverlayWindow.isActive()) return;
-                await FlutterOverlayWindow.showOverlay(
+                if (await FlutterOverlayWindowMagic.isActive()) return;
+                await FlutterOverlayWindowMagic.showOverlay(
                   enableDrag: true,
                   overlayTitle: "X-SLAYER",
                   overlayContent: 'Overlay Enabled',
@@ -77,12 +76,12 @@ class _HomePageState extends State<HomePage> {
                   startPosition: const OverlayPosition(0, -259),
                 );
               },
-              child: const Text("Show Overlay"),
+              child: const Text("Show Overlay,hello"),
             ),
             const SizedBox(height: 10.0),
             TextButton(
               onPressed: () async {
-                final status = await FlutterOverlayWindow.isActive();
+                final status = await FlutterOverlayWindowMagic.isActive();
                 log("Is Active?: $status");
               },
               child: const Text("Is Active?"),
@@ -90,7 +89,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 10.0),
             TextButton(
               onPressed: () async {
-                await FlutterOverlayWindow.resizeOverlay(
+                await FlutterOverlayWindowMagic.resizeOverlay(
                   WindowSize.matchParent,
                   (MediaQuery.of(context).size.height * 5).toInt(),
                   false,
@@ -102,7 +101,7 @@ class _HomePageState extends State<HomePage> {
             TextButton(
               onPressed: () {
                 log('Try to close');
-                FlutterOverlayWindow.closeOverlay()
+                FlutterOverlayWindowMagic.closeOverlay()
                     .then((value) => log('STOPPED: alue: $value'));
               },
               child: const Text("Close Overlay"),
@@ -119,7 +118,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20.0),
             TextButton(
               onPressed: () {
-                FlutterOverlayWindow.getOverlayPosition().then((value) {
+                FlutterOverlayWindowMagic.getOverlayPosition().then((value) {
                   log('Overlay Position: $value');
                   setState(() {
                     latestMessageFromOverlay = 'Overlay Position: $value';
@@ -131,7 +130,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20.0),
             TextButton(
               onPressed: () {
-                FlutterOverlayWindow.moveOverlay(
+                FlutterOverlayWindowMagic.moveOverlay(
                   const OverlayPosition(0, 0),
                 );
               },

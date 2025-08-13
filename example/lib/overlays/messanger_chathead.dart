@@ -3,7 +3,7 @@ import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_overlay_window/flutter_overlay_window.dart';
+import 'package:flutter_overlay_window_magic/flutter_overlay_window_magic.dart';
 
 class MessangerChatHead extends StatefulWidget {
   const MessangerChatHead({Key? key}) : super(key: key);
@@ -46,12 +46,12 @@ class _MessangerChatHeadState extends State<MessangerChatHead> {
       child: GestureDetector(
         onTap: () async {
           if (_currentShape == BoxShape.rectangle) {
-            await FlutterOverlayWindow.resizeOverlay(50, 100, true);
+            await FlutterOverlayWindowMagic.resizeOverlay(50, 100, true);
             setState(() {
               _currentShape = BoxShape.circle;
             });
           } else {
-            await FlutterOverlayWindow.resizeOverlay(
+            await FlutterOverlayWindowMagic.resizeOverlay(
               WindowSize.matchParent,
               WindowSize.matchParent,
               false,

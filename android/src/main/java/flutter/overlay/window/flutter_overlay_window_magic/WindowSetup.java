@@ -1,4 +1,4 @@
-package flutter.overlay.window.flutter_overlay_window;
+package flutter.overlay.window.flutter_overlay_window_magic;
 
 
 import android.view.Gravity;

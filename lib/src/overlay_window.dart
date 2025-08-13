@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_overlay_window/src/models/overlay_position.dart';
-import 'package:flutter_overlay_window/src/overlay_config.dart';
+import 'package:flutter_overlay_window_magic/src/models/overlay_position.dart';
+import 'package:flutter_overlay_window_magic/src/overlay_config.dart';
 
-class FlutterOverlayWindow {
-  FlutterOverlayWindow._();
+class FlutterOverlayWindowMagic {
+  FlutterOverlayWindowMagic._();
 
   static final StreamController _controller = StreamController();
   static const MethodChannel _channel =

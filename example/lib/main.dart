@@ -8,7 +8,7 @@ void main() {
 }
 
 @pragma("vm:entry-point")
-void overlayMain() {
+void overlayMainMagic() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     const MaterialApp(

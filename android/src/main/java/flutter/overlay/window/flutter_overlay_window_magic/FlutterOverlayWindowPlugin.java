@@ -1,4 +1,4 @@
-package flutter.overlay.window.flutter_overlay_window;
+package flutter.overlay.window.flutter_overlay_window_magic;
 
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -66,10 +66,15 @@ public class FlutterOverlayWindowPlugin implements
         if (call.method.equals("checkPermission")) {
             result.success(checkOverlayPermission());
         } else if (call.method.equals("requestPermission")) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                intent.setData(Uri.parse("package:" + mActivity.getPackageName()));
-                mActivity.startActivityForResult(intent, REQUEST_CODE_FOR_OVERLAY_PERMISSION);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (mActivity != null) {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                    intent.setData(Uri.parse("package:" + mActivity.getPackageName()));
+                    mActivity.startActivityForResult(intent, REQUEST_CODE_FOR_OVERLAY_PERMISSION);
+                } else {
+                    // 无 Activity 场景无法直接拉起，但返回当前可用状态
+                    result.success(checkOverlayPermission());
+                }
             } else {
                 result.success(true);
             }
@@ -88,9 +93,10 @@ public class FlutterOverlayWindowPlugin implements
             boolean enableDrag = call.argument("enableDrag");
             String positionGravity = call.argument("positionGravity");
             Map<String, Integer> startPosition = call.argument("startPosition");
-            int startX = startPosition != null ? startPosition.getOrDefault("x", OverlayConstants.DEFAULT_XY) : OverlayConstants.DEFAULT_XY;
-            int startY = startPosition != null ? startPosition.getOrDefault("y", OverlayConstants.DEFAULT_XY) : OverlayConstants.DEFAULT_XY;
-
+            int startX = startPosition != null ? startPosition.getOrDefault("x", OverlayConstants.DEFAULT_XY)
+                    : OverlayConstants.DEFAULT_XY;
+            int startY = startPosition != null ? startPosition.getOrDefault("y", OverlayConstants.DEFAULT_XY)
+                    : OverlayConstants.DEFAULT_XY;
 
             WindowSetup.width = width != null ? width : -1;
             WindowSetup.height = height != null ? height : -1;
@@ -111,10 +117,6 @@ public class FlutterOverlayWindowPlugin implements
             result.success(null);
         } else if (call.method.equals("isOverlayActive")) {
             result.success(OverlayService.isRunning);
-            return;
-        } else if (call.method.equals("isOverlayActive")) {
-            result.success(OverlayService.isRunning);
-            return;
         } else if (call.method.equals("moveOverlay")) {
             int x = call.argument("x");
             int y = call.argument("y");
@@ -122,12 +124,11 @@ public class FlutterOverlayWindowPlugin implements
         } else if (call.method.equals("getOverlayPosition")) {
             result.success(OverlayService.getCurrentPosition());
         } else if (call.method.equals("closeOverlay")) {
-            if (OverlayService.isRunning) {
-                final Intent i = new Intent(context, OverlayService.class);
-                context.stopService(i);
-                result.success(true);
-            }
-            return;
+            final Intent intent = new Intent(context, OverlayService.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(OverlayService.INTENT_EXTRA_IS_CLOSE_WINDOW, true);
+            context.startService(intent);
+            result.success(true);
         } else {
             result.notImplemented();
         }
@@ -148,7 +149,7 @@ public class FlutterOverlayWindowPlugin implements
             FlutterEngineGroup enn = new FlutterEngineGroup(context);
             DartExecutor.DartEntrypoint dEntry = new DartExecutor.DartEntrypoint(
                     FlutterInjector.instance().flutterLoader().findAppBundlePath(),
-                    "overlayMain");
+                    "overlayMainMagic");
             FlutterEngine engine = enn.createAndRunEngine(context, dEntry);
             FlutterEngineCache.getInstance().put(OverlayConstants.CACHED_TAG, engine);
         }

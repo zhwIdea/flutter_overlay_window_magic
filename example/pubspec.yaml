@@ -19,7 +19,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_accessibility_service: ^0.2.6
-  flutter_overlay_window:
+  flutter_overlay_window_magic:
     path: ../
   multiavatar: ^0.1.5
   provider: ^6.0.2

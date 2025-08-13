@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_overlay_window/flutter_overlay_window.dart';
+import 'package:flutter_overlay_window_magic/flutter_overlay_window_magic.dart';
 
 class TrueCallerOverlay extends StatefulWidget {
   const TrueCallerOverlay({Key? key}) : super(key: key);
@@ -52,7 +52,7 @@ class _TrueCallerOverlayState extends State<TrueCallerOverlay> {
               setState(() {
                 isGold = !isGold;
               });
-              FlutterOverlayWindow.getOverlayPosition().then((value) {
+              FlutterOverlayWindowMagic.getOverlayPosition().then((value) {
                 log("Overlay Position: $value");
               });
             },
@@ -74,7 +74,7 @@ class _TrueCallerOverlayState extends State<TrueCallerOverlay> {
                         ),
                       ),
                       title: const Text(
-                        "X-SLAYER",
+                        "X-SLAYER-MAGIC",
                         style: TextStyle(
                             fontSize: 20.0, fontWeight: FontWeight.bold),
                       ),
@@ -90,7 +90,7 @@ class _TrueCallerOverlayState extends State<TrueCallerOverlay> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("+216 21065826"),
+                              Text("+216 MAGIC"),
                               Text("Last call - 1 min ago"),
                             ],
                           ),
@@ -109,7 +109,7 @@ class _TrueCallerOverlayState extends State<TrueCallerOverlay> {
                   right: 0,
                   child: IconButton(
                     onPressed: () async {
-                      await FlutterOverlayWindow.closeOverlay();
+                      await FlutterOverlayWindowMagic.closeOverlay();
                     },
                     icon: const Icon(
                       Icons.close,
